@@ -13,7 +13,7 @@ exports.run = (client, message) => {
     .setColor(0x00AE86)
     .setTimestamp()
     .setAuthor(message.author.username, message.author.avatarURL)
-    .setDescription('Link: https://discordapp.com/oauth2/authorize?client_id=510116538192363520&scope=bot&permissions=268545070');
+    .setDescription('Müzik Botunu Eklemek İçin Link:https://discordapp.com/oauth2/authorize?client_id=510723215169945601&scope=bot&permissions=536213879     Link: https://discordapp.com/oauth2/authorize?client_id=510116538192363520&scope=bot&permissions=268545070');
     return message.author.sendEmbed(pingozel)
 };
 
