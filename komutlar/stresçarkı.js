@@ -6,7 +6,7 @@ exports.run = async (client, message) => {
     let dönme = await message.channel.send({
         embed: {
             color: 0x00AE86,
-            description: `${message.author.tag} bir stres çarkı çevirdi!`,
+            description: `${message.author.tag} Bir Stres Çarkı Çevirdi!`,
             image: {
                 url: "https://i.imgur.com/KJJxVi4.gif"
             }
@@ -18,7 +18,7 @@ exports.run = async (client, message) => {
         dönme.edit({
             embed: {
                 color: 0x00AE86,
-                description: `${message.author.tag}, stres çarkın ${bitiş.toFixed(2)} saniye döndü.`
+                description: `${message.author.tag}, Stres Çarkın ${bitiş.toFixed(2)} Saniye Döndü.`
             }
         });
     }, 5 * 1000);
@@ -33,6 +33,6 @@ exports.conf = {
 
 exports.help = {
   name: 'stresçarkı',
-  description: 'Sizin için bir stres çarkı çevirir.',
+  description: 'Sizin İçin Bir Stres Çarkı Çevirir.',
   usage: 'stresçarkı'
 };
