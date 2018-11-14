@@ -8,13 +8,13 @@ exports.run = (client, message, params) => {
   if (!params[0]) {
     const commandNames = Array.from(client.commands.keys());
     const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
-    message.author.sendCode('asciidoc', `= Komut Listesi =\n\n[Komut hakkında bilgi için ${ayarlar.prefix}yardım <komut adı>]\n\n${client.commands.map(c => `${ayarlar.prefix}${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`).join('\n')}`);
+    message.author.sendCode('asciidoc', `= Komut Listesi =\n\n[Komut Hakkında Bilgi İçin ${ayarlar.prefix}Yardım <Komut adı>]\n\n${client.commands.map(c => `${ayarlar.prefix}${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`).join('\n')}`);
   if (message.channel.type !== 'dm') {
     const ozelmesajkontrol = new Discord.RichEmbed()
     .setColor(0x00AE86)
     .setTimestamp()
     .setAuthor(message.author.username, message.author.avatarURL)
-    .setDescription('Özel mesajlarını kontrol et. :postbox:');
+    .setDescription('Özel Mesajlarını Kontrol Et. :postbox:');
     message.channel.sendEmbed(ozelmesajkontrol) }
   } else {
     let command = params[0];
@@ -36,5 +36,5 @@ exports.conf = {
 exports.help = {
   name: 'yardım',
   description: 'Tüm komutları gösterir.',
-  usage: 'yardım [komut]'
+  usage: 'yardım [Komut]'
 };
