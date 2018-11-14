@@ -4,11 +4,11 @@ const Discord = require('discord.js');
 exports.run = function(client, message, args) {
 
 	var öneri = args.slice(0).join(' ');
-	var guildID = "459698010473889813";
-	var channelID = "484779276114067467";
+	var guildID = "477825005607190528";
+	var channelID = "477879191036231710";
 
 	if (!öneri){
-		return message.reply("Bir mesaj belirtin! Doğru kullanım: **/öneri <mesaj>**");
+		return message.reply("Bir Mesaj Belirtin! Doğru Kullanım: **/öneri <Mesaj>**");
 	} else {
 
 		var embed = new Discord.RichEmbed()
@@ -19,7 +19,7 @@ exports.run = function(client, message, args) {
 			.addField("Öneri", öneri)
 
 		client.guilds.get(guildID).channels.get(channelID).send(embed);
-		message.channel.send("Öneriniz alınmıştır! Teşekkür ederiz.");
+		message.channel.send("Öneriniz Alınmıştır! Teşekkür Ederiz.");
 	};
 
 
@@ -34,6 +34,6 @@ exports.conf = {
 
 exports.help = {
   name: 'öneri',
-  description: "bot hakkındaki önerilerinizi bot sahiplerine ulaştırır",
+  description: "Bot Hakkındaki Önerilerinizi Bot Sahiplerine Ulaştırır",
   usage: 'öneri <mesaj>'
 };
