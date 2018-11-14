@@ -10,11 +10,11 @@ exports.run = function(client, message) {
         .setColor(0x00AE86)
         .addField("Lakabı", "The Lumberjack (Oduncu)", true)
         .addField("Yetenekleri", `
-        *Çok güzel bir baltası var
-   *Korkunç bir sırrı var (Werebeaver)
+        *Çok Güzel Bir Baltası Var
+   *Korkunç Bir Sırrı Var (Werebeaver)
    `, true)
-   .addField("Motto", `That's nice tree, eh? (güzel ağaç, ha?)`, true)
-   .addField("selam", "haha naber")
+   .addField("Motto", `That's Nice Rree, Eh? (Güzel Ağaç, Ha?)`, true)
+   .addField("Selam", "Haha Naber")
 
 
    message.channel.send(embed)
@@ -29,6 +29,6 @@ exports.conf = {
 
 exports.help = {
   name: 'woodie',
-  description: 'Woodie the Lumberjack hakkında bilgi verir',
+  description: 'Woodie The Lumberjack Hakkında Bilgi Verir',
   usage: 'woodie'
 };
