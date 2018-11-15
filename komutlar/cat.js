@@ -13,7 +13,7 @@ class Cat extends Social {
       cost: 5,
       cooldown: 10,
       aliases: ["kitten"],
-      loadingString: "<a:typing:397490442469376001> **{{displayName}}** is petting a cat...",
+      loadingString: "<a:typing:477825005607190528> **{{displayName}}** is petting a cat...",
       botPerms: ["EMBED_LINKS"]
     });
   }
