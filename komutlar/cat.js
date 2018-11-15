@@ -21,7 +21,7 @@ class Cat extends Social {
   async run(message, args, level, loadingMessage) {
     const { body } = await get("https://api.weeb.sh/images/random?type=animal_cat")
       .set("Authorization", `Wolke ${process.env.WEEBSH}`)
-      .set("User-Agent", `Misaki/${version}/${this.client.user.id === "396323622953680910" ? "Production" : "Development"}`);
+      .set("User-Agent", `Misaki/${version}/${this.client.user.id === "409238673528324097" ? "Production" : "Development"}`);
 
     await loadingMessage.edit({
       embed: {
