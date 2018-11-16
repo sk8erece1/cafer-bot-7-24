@@ -1,4 +1,4 @@
-const Social = require("../../structures/Social.js");
+const Social = require("sneakfetch");
 const { get } = require("snekfetch");
 class Gif extends Social {
   constructor(...args) {
