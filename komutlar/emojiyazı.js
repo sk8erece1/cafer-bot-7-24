@@ -34,12 +34,12 @@ exports.run = function(client, message, args) {
 exports.conf = {
   enabled: true,
   guildOnly: true,
-  aliases: [],
+  aliases: [/ey],
   permLevel: 0
 };
 
 exports.help = {
   name: 'emojiyazı',
-  description: 'Mesajınızı emoji haline getirir',
+  description: 'Mesajınızı Emoji Haline Getirir',
   usage: 'emojiyazı <mesaj>'
 };
