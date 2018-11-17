@@ -13,11 +13,11 @@ exports.run = (client, message, args) => {
   let reason = args.slice(1).join(' ');
   let user = message.mentions.users.first();
   let modlog = guild.channels.find('name', 'mod-log');
-  if (!modlog) return message.reply('`mod-log` kanalını bulamıyorum.');
-  if (reason.length < 1) return message.reply('Ban sebebini yazmalısın.');
-  if (message.mentions.users.size < 1) return message.reply('Kimi banlayacağını yazmalısın.').catch(console.error);
+  if (!modlog) return message.reply('`mod-log` Kanalını Bulamıyorum.');
+  if (reason.length < 1) return message.reply('Ban Sebebini Yazmalısın.');
+  if (message.mentions.users.size < 1) return message.reply('Kimi Banlayacağını Yazmalısın.').catch(console.error);
 
-  if (!message.guild.member(user).bannable) return message.reply('Yetkilileri banlayamam.');
+  if (!message.guild.member(user).bannable) return message.reply('Yetkilileri Banlayamam.');
   message.guild.ban(user, 2);
 
   const embed = new Discord.RichEmbed()
@@ -39,6 +39,6 @@ exports.conf = {
 
 exports.help = {
   name: 'ban',
-  description: 'İstediğiniz kişiyi banlar.',
-  usage: 'ban [kullanıcı] [sebep]'
+  description: 'İstediğiniz Kişiyi Banlar.',
+  usage: 'ban [Kullanıcı] [Sebep]'
 };
