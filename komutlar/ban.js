@@ -75,7 +75,7 @@ exports.exec = async (Bastion, message, args) => {
 };
 
 exports.config = {
-  aliases: [ 'b' ],
+  aliases: [],
   enabled: true,
   argsDefinitions: [
     { name: 'id', type: String, defaultOption: true },
