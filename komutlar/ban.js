@@ -1,44 +1,94 @@
-const Discord = require('discord.js');
-const client = new Discord.Client();
+/**
+ * @file ban command
+ * @author Sankarsan Kampa (a.k.a k3rn31p4nic)
+ * @license GPL-3.0
+ */
 
-exports.run = (client, message, args) => {
-  if (!message.guild) {
-  const ozelmesajuyari = new Discord.RichEmbed()
-  .setColor(0xFF0000)
-  .setTimestamp()
-  .setAuthor(message.author.username, message.author.avatarURL)
-  .addField(':warning: Uyarı :warning:', '`ban` adlı komutu özel mesajlarda kullanamazsın.')
-  return message.author.sendEmbed(ozelmesajuyari); }
-  let guild = message.guild
-  let reason = args.slice(1).join(' ');
-  let user = message.mentions.users.first();
-  let modlog = guild.channels.find('name', 'mod-log');
-  if (!modlog) return message.reply('`mod-log` kanalını bulamıyorum.');
-  if (reason.length < 1) return message.reply('Ban sebebini yazmalısın.');
-  if (message.mentions.users.size < 1) return message.reply('Kimi banlayacağını yazmalısın.').catch(console.error);
+exports.exec = async (Bastion, message, args) => {
+  try {
+    let user;
+    if (message.mentions.users.size) {
+      user = message.mentions.users.first();
+    }
+    else if (args.id) {
+      user = await Bastion.fetchUser(args.id);
+    }
+    if (!user) {
+      /**
+      * The command was ran with invalid parameters.
+      * @fires commandUsage
+      */
+      return Bastion.emit('commandUsage', message, this.help);
+    }
 
-  if (!message.guild.member(user).bannable) return message.reply('Yetkilileri banlayamam.');
-  message.guild.ban(user, 2);
+    if (message.guild.members.has(user.id)) {
+      let member = await message.guild.members.get(user.id);
+      if (message.author.id !== message.guild.ownerID && message.member.highestRole.comparePositionTo(member.highestRole) <= 0) return Bastion.log.info(Bastion.i18n.error(message.guild.language, 'lowerRole'));
 
-  const embed = new Discord.RichEmbed()
-    .setColor(0x00AE86)
-    .setTimestamp()
-    .addField('Eylem:', 'Ban')
-    .addField('Kullanıcı:', `${user.username}#${user.discriminator} (${user.id})`)
-    .addField('Yetkili:', `${message.author.username}#${message.author.discriminator}`)
-    .addField('Sebep', reason);
-  return guild.channels.get(modlog.id).sendEmbed(embed);
+      if (!member.bannable) {
+        /**
+        * Error condition is encountered.
+        * @fires error
+        */
+        return Bastion.emit('error', '', Bastion.i18n.error(message.guild.language, 'noPermission', 'ban', user), message.channel);
+      }
+    }
+
+    args.reason = args.reason.join(' ');
+
+    await message.guild.ban(user.id, {
+      days: 7,
+      reason: args.reason
+    });
+
+    message.channel.send({
+      embed: {
+        color: Bastion.colors.RED,
+        description: Bastion.i18n.info(message.guild.language, 'ban', message.author.tag, user.tag, args.reason),
+        footer: {
+          text: `ID ${user.id}`
+        }
+      }
+    }).catch(e => {
+      Bastion.log.error(e);
+    });
+
+    /**
+    * Logs moderation events if it is enabled
+    * @fires moderationLog
+    */
+    Bastion.emit('moderationLog', message, this.help.name, user, args.reason);
+
+    let DMChannel = await user.createDM();
+    DMChannel.send({
+      embed: {
+        color: Bastion.colors.RED,
+        description: Bastion.i18n.info(message.guild.language, 'banDM', message.author.tag, message.guild.name, args.reason)
+      }
+    }).catch(e => {
+      Bastion.log.error(e);
+    });
+  }
+  catch (e) {
+    Bastion.log.error(e);
+  }
 };
 
-exports.conf = {
+exports.config = {
+  aliases: [ 'b' ],
   enabled: true,
-  guildOnly: true,
-  aliases: [],
-  permLevel: 2
+  argsDefinitions: [
+    { name: 'id', type: String, defaultOption: true },
+    { name: 'reason', alias: 'r', type: String, multiple: true, defaultValue: [ 'No reason given.' ] }
+  ]
 };
 
 exports.help = {
   name: 'ban',
-  description: 'İstediğiniz kişiyi banlar.',
-  usage: 'ban [kullanıcı] [sebep]'
+  description: 'Bans the specified user from your Discord server and removes 7 days of their message history.',
+  botPermission: 'BAN_MEMBERS',
+  userTextPermission: 'BAN_MEMBERS',
+  userVoicePermission: '',
+  usage: 'ban <@USER_MENTION | USER_ID> -r [Reason]',
+  example: [ 'ban @user#001 -r Spamming in support channel.', 'ban 167147569575323761 -r Reputed spammer.' ]
 };
